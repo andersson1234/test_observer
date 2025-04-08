@@ -13,6 +13,10 @@ variable "environment" {
   description = "The environment to deploy to (development, stg, production)"
 }
 
+variable "this_juju_model" {
+  description = "an unfortunate hack."
+}
+
 variable "tls_secret_name" {
   description = "Secret where the TLS certificate for ingress is stored"
   type        = string
@@ -68,7 +72,8 @@ locals {
     stg         = "https://84a48d05b2444e47a7fa176b577bf85a@sentry.is.canonical.com//68",
     development = ""
   }
-  juju_model = "test-observer-${var.environment}"
+  # juju_model = "test-observer-${var.environment}"
+  juju_model = var.this_juju_model
 }
 
 resource "juju_application" "ingress" {
